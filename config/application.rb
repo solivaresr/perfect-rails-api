@@ -34,6 +34,16 @@ module PerfectRailsApi
       end
     end
 
+    # To protect our API from DDoS, brute force attacks, hammering,
+    # or even to monetize with paid usage limits, we can use a Rake middleware
+    # called Rack::Attack. The rack-attack gem was released by Kickstarter,
+    # and it allows us to:
+    # whitelist: Allowing it to process normally if certain conditions are true
+    # blacklist: Sending a denied message instantly for certain requests
+    # throttle: Checking if the user is within their allowed usage
+    # track: Tracking this request to be able to log certain information about our requests
+    config.middleware.use Rack::Attack
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
